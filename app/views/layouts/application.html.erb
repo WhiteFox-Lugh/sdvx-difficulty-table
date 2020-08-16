@@ -1,15 +1,52 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>SdvxDifficultyTable</title>
     <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'avantui', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'avantui', 'data-turbolinks-track': 'reload' %>
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
+      </script>
+    <![endif]-->
   </head>
-
+  <title>SDVX Table</title>
   <body>
-    <%= yield %>
+
+  <!-- nav bar -->
+    <nav class="navbar navbar-expand-sm navbar-dark bg-gradient-red-orange mb-3">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav4" aria-controls="navbarNav4" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-brand">
+        SDVX Table
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item nav-link">
+            Log In
+          </li>
+          <li class="nav-item nav-link">
+            Sign Up
+          </li>
+        </ul>
+        <ul class="nav mb-3 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link py-0" href="#">
+              <i class="fab fa-twitter text-white"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- nav bar end -->
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
