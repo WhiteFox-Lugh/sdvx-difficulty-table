@@ -1,0 +1,2 @@
+class Sdvx < ApplicationRecord
+end

@@ -1,0 +1,26 @@
+<h1>SDVX Lv. <%= @level %></h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">title</th>
+      <th scope="col">level</th>
+      <th scope="col">chain</th>
+      <th scope="col">jacket</th>
+      <th scope="col">version</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @tunes.each do |t| %>
+    <tr>
+      <th scope="row"><%= t.title %></th>
+      <td><%= t.level %></td>
+      <td><%= t.chain %></td>
+      <td><%= t.jacket_img_url %></td>
+      <td><%= t.version %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+
