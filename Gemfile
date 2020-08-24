@@ -5,6 +5,9 @@ ruby '2.6.6'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
+gem 'dotenv-rails'
+gem 'omniauth-twitter'
+
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4', group: [:development, :test]
 gem 'mysql2'
@@ -52,6 +55,7 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
+  gem 'rack_session_access'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
