@@ -3,20 +3,30 @@
 <table class="table table-striped">
   <thead>
     <tr>
+      <th scope="col">jacket</th>
       <th scope="col">title</th>
       <th scope="col">level</th>
       <th scope="col">chain</th>
-      <th scope="col">jacket</th>
-      <th scope="col">version</th>
+      <th scope="col">S許容</th>
+      <th scope="col">995許容</th>
+      <th scope="col">998許容</th>
+      <th scope="col">ver</th>
     </tr>
   </thead>
   <tbody>
+  <% puc = 1000 %>
+  <% b_990 = 990 %>
+  <% b_995 = 995 %>
+  <% b_998 = 998 %>
   <% @tunes.each do |t| %>
     <tr>
+      <td><%= t.jacket_img_url %></td>
       <th scope="row"><%= t.title %></th>
       <td><%= t.level %></td>
       <td><%= t.chain %></td>
-      <td><%= t.jacket_img_url %></td>
+      <td><%= (((puc - b_990) * 2 * t.chain) / puc).floor %></td>
+      <td><%= (((puc - b_995) * 2 * t.chain) / puc).floor %></td>
+      <td><%= (((puc - b_998) * 2 * t.chain) / puc).floor %></td>
       <td><%= t.version %></td>
     </tr>
   <% end %>

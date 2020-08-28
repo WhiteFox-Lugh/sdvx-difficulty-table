@@ -3,5 +3,11 @@ Rails.application.routes.draw do
   get 'table' => 'table#index'
   get '/table/:lv', to: 'table#list', as: :table_lv
   get 'top/index'
+
+  # login / logout
+  get '/auth/:provider/callback', to: 'sessions#create'
+  get 'auth/twitter', as: :login
+  get '/logout', to: 'sessions#destroy'
+
   root 'top#index'
 end
