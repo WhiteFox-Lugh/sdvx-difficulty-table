@@ -23,20 +23,32 @@
       </div>
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Table
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <%= link_to 'Lv.18', '/table/18', class: "dropdown-item" %>
+              <%= link_to 'Lv.19', '/table/19', class: "dropdown-item" %>
+              <%= link_to 'Lv.20', '/table/20', class: "dropdown-item" %>
+            </div>
+          </li>
           <% if logged_in? %>
-            <li class="nav-item">
-              <%= link_to 'Log out', logout_path, class: "nav-link" %>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="active">
+                  <i class="fas fa-id-card"></i> <%= @current_user.nickname %>
+                </span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <%= link_to 'Log out', logout_path, class: "dropdown-item" %>
+              </div>
             </li>
           <% else %>
             <li class="nav-item">
               <%= link_to 'Log in', login_path, class: "nav-link" %>
             </li>
           <% end %>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="fab fa-twitter text-white"></i>
-            </a>
-          </li>
         </ul>
       </div>
     </nav>
@@ -49,5 +61,9 @@
         </div>
       </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
+    <script src="assets/js/avantui.js"></script>
   </body>
 </html>

@@ -5,12 +5,13 @@
     <tr>
       <th scope="col">jacket</th>
       <th scope="col">title</th>
-      <th scope="col">level</th>
       <th scope="col">chain</th>
       <th scope="col">S許容</th>
       <th scope="col">995許容</th>
       <th scope="col">998許容</th>
       <th scope="col">ver</th>
+      <th scope="col">score</th>
+      <th scope="col">medal</th>
     </tr>
   </thead>
   <tbody>
@@ -20,17 +21,25 @@
   <% b_998 = 998 %>
   <% @tunes.each do |t| %>
     <tr>
-      <td><%= t.jacket_img_url %></td>
-      <th scope="row"><%= t.title %></th>
-      <td><%= t.level %></td>
+      <td>
+        <img src="<%= t.jacket_img_url %>" class="img-flued" alt="Thumbnail" width="50px" height="50px">
+      </td>
+      <th scope="row">
+      <%= t.title %>
+      </th>
       <td><%= t.chain %></td>
       <td><%= (((puc - b_990) * 2 * t.chain) / puc).floor %></td>
       <td><%= (((puc - b_995) * 2 * t.chain) / puc).floor %></td>
       <td><%= (((puc - b_998) * 2 * t.chain) / puc).floor %></td>
       <td><%= t.version %></td>
+      <td>
+      </td>
+      <td></td>
     </tr>
   <% end %>
   </tbody>
 </table>
+
+
 
 
