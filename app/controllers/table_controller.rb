@@ -4,13 +4,23 @@ class TableController < ApplicationController
   end
 
   def list
-    if !logged_in?
-      redirect_to root_url
-    end
-    
     @level = params[:lv].to_i
-    uid = @current_user.uid
+    if @level <= 17 || @level >= 21
+      @level = 18
+    end
+
     @tunes = Sdvx.where(level: @level)
-    @achieves = Achievement.where(userid: uid)
+
+    if logged_in?
+      uid = @current_user.uid
+      achieve_table = Achievement.where(userid: uid)
+      @achieve_map = Hash.new
+
+      achieve_table.each do |t|
+        data = [t.score, t.medal]
+        tuneid = t.tuneid
+        @achieve_map.store(tuneid, data)
+      end
+    end
   end
 end
