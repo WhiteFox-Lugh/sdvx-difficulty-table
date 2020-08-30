@@ -43,16 +43,20 @@
       <td><%= (((puc - b_995) * 2 * t.chain) / puc).floor %></td>
       <td><%= (((puc - b_998) * 2 * t.chain) / puc).floor %></td>
       <% if logged_in? %>
+        <% score_map = {0 => "None", 1 => "AAA", 2 => "AAA+", 3 => "S", 4 => "995", 5 => "998", 6 => "PERFECT"} %>
+        <% medal_map = {0 => "None", 1 => "Clear", 2 => "EX-Clear", 3 => "UC", 4 => "PUC"} %>
+        <% tune_no = t.id %>
+        <% record = @achieve_map[tune_no] %>
+        <% score_str = if record == nil then score_map[0] else score_map[record[0]] end %>
+        <% medal_str = if record == nil then medal_map[0] else medal_map[record[1]] end %>
         <td>
+          <%= score_str %>
         </td>
         <td>
+          <%= medal_str %>
         </td>
       <% end %>
     </tr>
   <% end %>
   </tbody>
 </table>
-
-<%= @achieve_map.each do |key, value| %>
-  <p>Key : <%= key %>, Value : <%= value %></p>
-<% end %>
