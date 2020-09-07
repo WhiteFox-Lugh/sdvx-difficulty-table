@@ -13,12 +13,13 @@
 ActiveRecord::Schema.define(version: 2020_08_28_022400) do
 
   create_table "achievements", id: false, force: :cascade do |t|
-    t.string "userid"
-    t.integer "tuneid"
+    t.string "userid", null: false
+    t.integer "tuneid", null: false
     t.integer "score", default: 0
     t.integer "medal", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["userid", "tuneid"], name: "index_achievements_on_userid_and_tuneid", unique: true
   end
 
   create_table "sdvxes", force: :cascade do |t|
