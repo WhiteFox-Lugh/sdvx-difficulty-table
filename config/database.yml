@@ -22,4 +22,6 @@ test:
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  database: heroku_6c7d068df07feba
+  username: b2a2389471acc7
+  password: <%= ENV['DATABASE_PASSWORD'] %>
