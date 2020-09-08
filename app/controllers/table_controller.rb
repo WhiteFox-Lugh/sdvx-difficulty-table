@@ -57,14 +57,17 @@ class TableController < ApplicationController
 
         else
           current_medal = current_data.medal
-          new_medal = if new_score == 6 then 4 else current_medal end
+          new_medal = if new_score == 6 then 4 else (if current_medal == 4 then 0 else current_medal end) end
           sql = <<-SQL
             UPDATE "achievements" SET "score" = :score, "medal" = :medal
+            WHERE "userid" = :uid AND "tuneid" = :tid
           SQL
           ActiveRecord::Base.connection.execute(ActiveRecord::Base.send(
             :sanitize_sql_array,
             [
               sql,
+              uid: uid,
+              tid: tune_id,
               score: new_score,
               medal: new_medal 
             ]
@@ -97,15 +100,18 @@ class TableController < ApplicationController
 
         else
           current_score = current_data.score
-          new_score = if new_medal == 4 then 6 else current_score end
+          new_score = if new_medal == 4 then 6 else (if current_score == 6 then 0 else current_score end) end
           sql = <<-SQL
             UPDATE "achievements" SET "score" = :score, "medal" = :medal
+            WHERE "userid" = :uid AND "tuneid" = :tid
           SQL
 
           ActiveRecord::Base.connection.execute(ActiveRecord::Base.send(
             :sanitize_sql_array,
             [
               sql,
+              uid: uid,
+              tid: tune_id,
               score: new_score,
               medal: new_medal 
             ]

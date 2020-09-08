@@ -39,16 +39,26 @@
         <%= (((puc - b_998) * 2 * t.chain) / puc).floor %>
       </td>
       <% if logged_in? %>
+      
         <% score_map = {0 => "None", 1 => "AAA", 2 => "AAA+", 3 => "S", 4 => "995", 5 => "998", 6 => "PERFECT"} %>
         <% medal_map = {0 => "None", 1 => "Clear", 2 => "EX-Clear", 3 => "UC", 4 => "PUC"} %>
+        <% score_bg_map = {0 => "#F8F9FA", 1 => "#8EF1FF", 2 => "#8EB8FF", 3 => "#C299FF", 4 => "#FFAAFF", 5 => "#FFCC33", 6 => "#FFFF44"} %>
+        <% medal_bg_map = {0 => "#F8F9FA", 1 => "#78FF94", 2 => "#B384FF", 3 => "#FF99CC", 4 => "#FFFF44"} %>
         <% tune_no = t.id %>
         <% record = @achieve_map[tune_no] %>
-        <% score_str = if record == nil then score_map[0] else score_map[record[0]] end %>
-        <% medal_str = if record == nil then medal_map[0] else medal_map[record[1]] end %>
+        <% score_num = if record == nil then 0 else record[0] end %>
+        <% medal_num = if record == nil then 0 else record[1] end %>
+        <% score_str = score_map[score_num] %>
+        <% medal_str = medal_map[medal_num] %>
+        <% score_bgcolor = score_bg_map[score_num] %>
+        <% medal_bgcolor = medal_bg_map[medal_num] %>
+
         <td>
           <div class="input-group" id="score_<%= tune_no %>">
 						<div class="input-group-prepend">
-              <label class="input-group-text"><%= score_str %></label>
+              <label class="input-group-text" style="background-color: <%= score_bgcolor %>">
+                <%= score_str %>
+              </label>
             </div>
 						<select class="custom-select">
 							<option selected="">Update</option>
@@ -65,7 +75,9 @@
         <td>
           <div class="input-group" id="medal_<%= tune_no %>">
             <div class="input-group-prepend">
-              <label class="input-group-text"><%= medal_str %></label>
+              <label class="input-group-text" style="background-color:<%= medal_bgcolor %>">
+                <%= medal_str %>
+              </label>
             </div>
             <select class="custom-select">
               <option selected="">Update</option>
