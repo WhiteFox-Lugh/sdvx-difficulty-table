@@ -1,16 +1,21 @@
 <h1>SDVX Lv. <%= @level %></h1>
 
+<% if logged_in? %>
+  <p>Your ID : <%= @current_user.uid %></p>
+<% end %>
+
 <table class="table table-striped">
   <thead>
     <tr>
       <th scope="col">jacket</th>
       <th scope="col">title</th>
-      <th scope="col">level</th>
-      <th scope="col">chain</th>
-      <th scope="col">S許容</th>
-      <th scope="col">995許容</th>
-      <th scope="col">998許容</th>
       <th scope="col">ver</th>
+      <th scope="col">chain</th>
+      <th scope="col">許容(S/995/998)</th>
+      <% if logged_in? %>
+        <th scope="col">score</th>
+        <th scope="col">medal</th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
@@ -20,17 +25,95 @@
   <% b_998 = 998 %>
   <% @tunes.each do |t| %>
     <tr>
-      <td><%= t.jacket_img_url %></td>
-      <th scope="row"><%= t.title %></th>
-      <td><%= t.level %></td>
-      <td><%= t.chain %></td>
-      <td><%= (((puc - b_990) * 2 * t.chain) / puc).floor %></td>
-      <td><%= (((puc - b_995) * 2 * t.chain) / puc).floor %></td>
-      <td><%= (((puc - b_998) * 2 * t.chain) / puc).floor %></td>
+      <td>
+        <img src="<%= t.jacket_img_url %>" class="img-flued" alt="Thumbnail" width="50px" height="50px">
+      </td>
+      <th scope="row">
+      <%= t.title %>
+      </th>
       <td><%= t.version %></td>
+      <td><%= t.chain %></td>
+      <td>
+        <%= (((puc - b_990) * 2 * t.chain) / puc).floor %> /
+        <%= (((puc - b_995) * 2 * t.chain) / puc).floor %> /
+        <%= (((puc - b_998) * 2 * t.chain) / puc).floor %>
+      </td>
+      <% if logged_in? %>
+      
+        <% score_map = {0 => "None", 1 => "AAA", 2 => "AAA+", 3 => "S", 4 => "995", 5 => "998", 6 => "PERFECT"} %>
+        <% medal_map = {0 => "None", 1 => "Clear", 2 => "EX-Clear", 3 => "UC", 4 => "PUC"} %>
+        <% score_bg_map = {0 => "#F8F9FA", 1 => "#8EF1FF", 2 => "#8EB8FF", 3 => "#C299FF", 4 => "#FFAAFF", 5 => "#FFCC33", 6 => "#FFFF44"} %>
+        <% medal_bg_map = {0 => "#F8F9FA", 1 => "#78FF94", 2 => "#B384FF", 3 => "#FF99CC", 4 => "#FFFF44"} %>
+        <% tune_no = t.id %>
+        <% record = @achieve_map[tune_no] %>
+        <% score_num = if record == nil then 0 else record[0] end %>
+        <% medal_num = if record == nil then 0 else record[1] end %>
+        <% score_str = score_map[score_num] %>
+        <% medal_str = medal_map[medal_num] %>
+        <% score_bgcolor = score_bg_map[score_num] %>
+        <% medal_bgcolor = medal_bg_map[medal_num] %>
+
+        <td>
+          <div class="input-group" id="score_<%= tune_no %>">
+						<div class="input-group-prepend">
+              <label class="input-group-text" style="background-color: <%= score_bgcolor %>">
+                <%= score_str %>
+              </label>
+            </div>
+						<select class="custom-select">
+							<option selected="">Update</option>
+              <option value="0">None</option>
+							<option value="1">AAA</option>
+              <option value="2">AAA+</option>
+              <option value="3">S</option>
+              <option value="4">995</option>
+              <option value="5">998</option>
+              <option value="6">PERFECT</option>
+						</select>
+					</div>
+        </td>
+        <td>
+          <div class="input-group" id="medal_<%= tune_no %>">
+            <div class="input-group-prepend">
+              <label class="input-group-text" style="background-color:<%= medal_bgcolor %>">
+                <%= medal_str %>
+              </label>
+            </div>
+            <select class="custom-select">
+              <option selected="">Update</option>
+              <option value="0">None</option>
+              <option value="1">Clear</option>
+              <option value="2">EX-Clear</option>
+              <option value="3">UC</option>
+              <option value="4">PUC</option>
+            </select>
+          </div>
+        </td>
+      <% end %>
     </tr>
   <% end %>
   </tbody>
 </table>
 
-
+<script>
+  $( 'div > select' ).change( function() {
+    let div_id = $( this ).parent( 'div' ).attr( 'id' );
+    let value = $( this ).val();
+    let url_str = '/table/update';
+    console.log("div_id -> " + div_id);
+    console.log("value  -> " + value);
+    console.log('url_str -> ' + url_str);
+    $.ajax({
+      type: 'GET',
+      url: url_str,
+      data: {
+        tune_id: div_id,
+        val: value
+      },
+      dataType: 'json'
+    })
+    .fail(function(data) {
+      alert('エラーが発生しました')
+    });
+  });
+</script>
