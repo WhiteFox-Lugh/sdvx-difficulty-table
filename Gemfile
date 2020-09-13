@@ -11,7 +11,7 @@ gem 'omniauth-twitter'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4', group: [:development, :test]
-gem 'mysql2'
+gem 'pg', group: :production
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets
