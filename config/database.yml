@@ -22,7 +22,7 @@ test:
 
 production:
   <<: *default
-  database: heroku_6c7d068df07feba
+  database: <%= ENV['DB_NAME'] %>
   url: <%= ENV['DATABASE_URL'] %>
   username: <%= ENV['DATABASE_USERNAME'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
