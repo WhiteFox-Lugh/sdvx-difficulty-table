@@ -1,6 +1,6 @@
 class CreateSdvxes < ActiveRecord::Migration[6.0]
   def change
-    create_table :sdvxes do |t|
+    create_table :sdvxes, options: 'CHARSET=utf8mb4' do |t|
       t.string :title
       t.string :composer
       t.integer :level
